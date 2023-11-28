@@ -1,0 +1,82 @@
+import { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css"; 
+
+import "./App.css";
+
+function App() {
+  const [city, setCity] = useState("");
+  const [weather, setWeather] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  window.onload = function() {
+    if (localStorage.getItem("city") !== null) {
+      setCity(localStorage.getItem("nairobi"));
+    }else{
+      getWeatherData()
+    }
+  };
+  
+
+  async function getWeatherData() {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city},&APPID=d9041933093d70168e966e20a8e9a14c`
+      );
+      const data = await response.json();
+      if (data.cod === 200) {
+        setWeather(data);
+        setErrorMessage("");
+      } else {
+        setErrorMessage(`Opps!! ${data.message}`);
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+    setCity("");
+  }
+
+  function fahrenheitToCelsius(fahrenheit) {
+    const celsiusTemperature = fahrenheit - 273.15;
+    return Math.round((celsiusTemperature * 10) / 10).toFixed(1);
+  }
+
+  return (
+    <div className="container">
+      <h1>Weather App</h1>
+
+      <div className="row">
+        <div className="col-md-8 col-12">
+          <input
+            className="form-control"
+            placeholder="e.g., Nairobi"
+            type="text"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+        </div>
+        <div className="col-md-4 col-12 mt-2 mt-md-0">
+          <button className="btn btn-primary" onClick={getWeatherData}>
+            Search
+          </button>
+        </div>
+      </div>
+      {loading && <p>Loading...</p>}
+      {errorMessage && <p>{errorMessage}</p>}
+      {weather && (
+        <div>
+          <h2>{weather.name}</h2>
+          <p>temp: {fahrenheitToCelsius(weather.main.temp)}°</p>
+          <p>description: {weather.weather[0].description}</p>
+          <p>humidity: {weather.main.humidity}</p>
+          <p>pressure: {weather.main.pressure}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default App;

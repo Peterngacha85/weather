@@ -1,0 +1,119 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+body {
+  margin: 0;
+  height: 0;
+  padding: 0;
+}
+
+.container {
+  padding: 0;
+  overflow: hidden;
+  text-align: center;
+  margin-top: 50px;
+  width: 100%;
+  max-width: 600px;
+  background: linear-gradient(-45deg, rgba(107, 10, 10, 0.895), rgb(23, 23, 239));
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  height: 93dvh;
+}
+
+input {
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* p {
+  margin: 5px 0;
+  font-size: 18px;
+  font-weight:bolder;
+
+} */
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.container {
+  transform: scale(0.8);
+}
+.icon{
+  
+  margin-top: -10px;
+  padding: 15px;
+  border-radius: 18px;
+  -webkit-border-radius: 18px;
+  -moz-border-radius: 18px;
+  -ms-border-radius: 18px;
+  -o-border-radius: 18px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    transform: scale(1);
+  }
+}
+/* image */
+#test{
+  max-width: 100px;
+  margin: 0 auto;
+  display: block;
+  margin-top: -15px;
+}
+/* footers */
+.foot{ 
+  display: flex;
+  background-color: inherit;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+  height: 20dvh;
+  margin-top: 50px;
+  text-align: center;
+  align-items: center;
+  width: 30%;
+
+}
+
+
+/* animation */
+/* Define the animation */
+@keyframes zoomInOut {
+  0% {
+    transform: scale(1); /* Initial size */
+  }
+  50% {
+    transform: scale(1.2); /* Zoom in to 120% size */
+  }
+  100% {
+    transform: scale(1); /* Return to the original size */
+  }
+}
+
+/* Apply the animation to your element */
+
+#test{
+  animation: zoomInOut 2s infinite;
+  -webkit-animation: zoomInOut 2s infinite;
+}
