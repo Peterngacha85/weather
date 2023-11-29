@@ -8,6 +8,7 @@ body {
   margin: 0;
   height: 0;
   padding: 0;
+  
 }
 
 .container {
@@ -93,6 +94,7 @@ h2 {
   text-align: center;
   align-items: center;
   width: 30%;
+  
 
 }
 
@@ -116,4 +118,8 @@ h2 {
 #test{
   animation: zoomInOut 2s infinite;
   -webkit-animation: zoomInOut 2s infinite;
+}
+.error{
+  animation: zoomInOut 1s infinite;
+  -webkit-animation: zoomInOut 1s infinite;
 }

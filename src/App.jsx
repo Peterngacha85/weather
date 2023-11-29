@@ -3,25 +3,25 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
-  const [city, setCity] = useState("Nairobi"); // Set the default city to Nairobi
-  const [weather, setWeather] = useState(null);
+  const [city, setCity] = useState(""); // Set the default city to Nairobi
+  const [weather, setWeather] = useState();
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [currentDateInfo, setCurrentDateInfo] = useState({});
 
-  const [weatherIcon, setWeatherIcon] = useState()
+  const [weatherIcon, setWeatherIcon] = useState();
+
 
   useEffect(() => {
     window.onload = function () {
       const storedCity = localStorage.getItem("city");
-
       if (storedCity !== null) {
         setCity(storedCity);
       } else {
         // If no city is stored, set the default city to Nairobi
-        setCity("Nairobi");
+        setCity(" ");
         // Save the default city in local storage
-        localStorage.setItem("city", "Nairobi");
+        localStorage.setItem("city");
         getWeatherData();
       }
     };
@@ -73,41 +73,48 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-const icon = () =>{
-  const allIcons = [
-    ['../public/assets/cloudy-1.png'],
-    ['../public/assets/cloudy.png'],
-    ['../public/assets/007-clear-sky.png'],
-    ['../public/assets/cloudy-2.png'],
-    ['../public/assets/sunny.png'],
-    ['../public/assets/rain.png'],
-    ['../public/assets/light-rain.png'],
-  ]
-  switch(weather.weather[0].description){
-    case 'clear sky':
-      setWeatherIcon(allIcons[2])
-      break;
-    case 'sunny':
-      setWeatherIcon(allIcons[4])
-      break;
-    case 'scattered clouds':
-      setWeatherIcon(allIcons[1])
-      break;
-    case 'broken clouds':
-      setWeatherIcon(allIcons[3])
-      break;
-    case 'light rain':
-      setWeatherIcon(allIcons[6])
-      break;
-    case 'rain':
-      setWeatherIcon(allIcons[5])
-      break;
-    default:
-      setWeatherIcon(allIcons[0])
-      break;
-  }
-  }
+  const icon = () => {
+    const allIcons = [
+      "weather/public/assets/cloudy-1.png",
+      "weather/public/assets/cloudy.png",
+      "weather/public/assets/007-clear-sky.png",
+      "weather/public/assets/cloudy-2.png",
+      "weather/public/assets/sunny.png",
+      "weather/public/assets/rain.png",
+      "weather/public/assets/light-rain.png",
+    ];
 
+    // Check if weather data is available
+  
+    switch (true || weather.weather[0].description) {
+      case "clear sky":
+        setWeatherIcon(allIcons[2]);
+        break;
+      case "sunny":
+        setWeatherIcon(allIcons[4]);
+        break;
+      case "scattered clouds":
+        setWeatherIcon(allIcons[1]);
+        break;
+      case "broken clouds":
+        setWeatherIcon(allIcons[3]);
+        break;
+      case "overcast clouds":
+        setWeatherIcon(allIcons[3]);
+        break;
+      case "light rain":
+        setWeatherIcon(allIcons[6]);
+        break;
+      case "few clouds":
+        setWeatherIcon(allIcons[3]);
+        break;
+      default:
+        setWeatherIcon(allIcons[4]);
+        console.log("ann kahoro");
+        break;
+    }
+  
+  };
 
   return (
     <div className="container">
@@ -129,7 +136,11 @@ const icon = () =>{
         </div>
       </div>
       {loading && <p>Loading...</p>}
-      {errorMessage && <p>{errorMessage}</p>}
+      {errorMessage && (
+        <p className="error" style={{ color: "red" }}>
+          {errorMessage}
+        </p>
+      )}
       {weather && (
         <div>
           <h2
@@ -138,20 +149,20 @@ const icon = () =>{
           >
             {weather.name}
           </h2>
+          <hr />
           <div className="d-flex justify-content-around">
             <div>{currentDateInfo.currentDateString}</div>
             <div>{currentDateInfo.currentTime}</div>
           </div>
-
+          <hr />
           <div className="d-flex justify-content-around mt-5">
-            <div className="icon">  
-            <img
-              id="test"
-              className="image"
-              src={weatherIcon}
-              alt="weather icon"
-              class="img-fluid"
-            />
+            <div className="icon">
+              <img
+                id="test"
+                src={weatherIcon}
+                alt="weather icon"
+                className="img-fluid image"
+              />
             </div>
             <div>
               <h1>{fahrenheitToCelsius(weather.main.temp)}°</h1>
@@ -160,8 +171,16 @@ const icon = () =>{
 
           <div className="d-flex justify-content-around">
             <div className="foot ">{weather.weather[0].description}</div>
-            <div className="foot humidity">humidity<br />{weather.main.humidity}</div>
-            <div className="foot">pressure<br />{weather.main.pressure}</div>
+            <div className="foot humidity">
+              humidity
+              <br />
+              {weather.main.humidity}
+            </div>
+            <div className="foot">
+              pressure
+              <br />
+              {weather.main.pressure}
+            </div>
           </div>
         </div>
       )}
