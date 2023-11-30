@@ -79,7 +79,7 @@ function App() {
       "weather/public/assets/cloudy.png",
       "weather/public/assets/007-clear-sky.png",
       "weather/public/assets/cloudy-2.png",
-      "public/assets/sunny.png",
+      "weather/public/assets/sunny.png",
       "weather/public/assets/rain.png",
       "weather/public/assets/light-rain.png",
     ];
